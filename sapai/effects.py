@@ -1072,11 +1072,17 @@ def TransferStats(apet, apet_idx, teams, te=None, te_idx=[], fixed_targets=[]):
             temp_from = get_target(apet, apet_idx, teams, te=te, get_from=True)
             ### Randomness not needed as outcome will be the same for all pets
             ###   that have this ability
-            temp_from = temp_from[0][0]
+            try:
+                temp_from = temp_from[0][0]
+            except:
+                print("Invalid indexing [0][0] from {}".format(temp_from))
             if copy_attack:
                 apet._attack = int(temp_from.attack * percentage)
             if copy_health:
-                apet._health = int(temp_from.health * percentage)
+                try:
+                    apet._health = int(temp_from.health * percentage)
+                except:
+                    print("Invalid indexing [0][0] from {}".format(temp_from))
 
     return target, possible
 

@@ -73,7 +73,6 @@ class Battle:
     def battle(self):
         ### Perform all effects that occur at the start of the battle
         self.start()
-
         battle_iter = 0
         while True:
             ### First update effect order
@@ -173,7 +172,6 @@ class Battle:
             if temp_phase == "phase_hurt_and_faint_k":
                 ### This is checked in phase_knockout for recursive Rhino behavior
                 continue
-
             battle_phase(
                 self, temp_phase, teams, self.pet_priority, phase_dict[attack_str]
             )
@@ -365,7 +363,6 @@ def battle_phase(battle_obj, phase, teams, pet_priority, phase_dict):
     """
     ### Parse inputs and collect info
     pp = pet_priority
-
     ##### Trigger logic for starting battle
     if phase.startswith("phase_move"):
         start_order = [[str(x) for x in teams[0]], [str(x) for x in teams[1]]]
@@ -535,6 +532,7 @@ def battle_phase_hurt_and_faint(battle_obj, phase, teams, pet_priority, phase_di
             fteam, oteam = get_teams([team_idx, pet_idx], teams)
             fainted_pet = fteam[pet_idx].pet
             ### Check for all pets that trigger off this fainted pet (including self)
+            ### SHark breaks code below somehow
             for te_team_idx, te_pet_idx in pp:
                 other_pet = teams[te_team_idx][te_pet_idx].pet
                 te_idx = [te_team_idx, te_pet_idx]
@@ -736,7 +734,6 @@ def battle_phase_knockout(battle_obj, phase, teams, pet_priority, phase_dict):
         return phase_dict
     knockout_list = attack_history[-1]
     phase_dict["phase_attack"] = phase_dict["phase_attack"][0:-1]
-
     for apet, team_idx in knockout_list:
         if apet.health > 0:
             ### Need to loop to handle Rhino

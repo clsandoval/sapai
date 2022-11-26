@@ -399,5 +399,21 @@ class TestBattles(unittest.TestCase):
         ### Implement later with others
         pass
 
+    def test_shark(self):
+        team1 = Team(["shark", "rat", "rat", "ox"])
+        team2 = Team(["shark", "rat", "rat", "ox"])
+        test_battle = Battle(team1,team2)
+        test_battle.battle()
+        print(team1,team2)
+        
+    def test_crab(self):
+        team1 = Team(["crab"])
+        team2 = Team(["camel", "rat", "ox"])
+        test_battle = Battle(team1,team2)
+        test_battle.battle()
+        print(team1,team2)
+
+
 
 # %%
+TestBattles().test_crab()

@@ -84,6 +84,10 @@ class Pet:
     def attack(self):
         if self._attack == "none":
             return self._attack
+        try:
+           self._attack + self._until_end_of_battle_attack_buff
+        except:
+            print("Attempted self.attack + self.until_end_of_battle_attack_buff {}".format(self._attack,self._until_end_of_battle_attack_buff))
         return min(
             status.apply_attack_dict[self.status](
                 self._attack + self._until_end_of_battle_attack_buff
@@ -529,6 +533,9 @@ class Pet:
         elif self.ability["triggeredBy"]["kind"] == "EachFriend":
             if trigger == self:
                 ### Only time this doesn't activate is if it self triggered
+                return activated, targets, possible
+            #fix for enemy triggering shark healing itself after fainting
+            if self.name == "pet-shark" and self.health==0:
                 return activated, targets, possible
         else:
             pass
